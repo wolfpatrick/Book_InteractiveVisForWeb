@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style type="text/css">
+			div.bar {
+				display: inline-block;
+				width: 15px;
+				height: 75px;
+				background-color: red;
+				margin-right: 2px;
+			}
+		</style>
+		
+		<meta charset="utf-8">
+		<title>D3 Page Template</title>
+
+		<script type="text/javascript" src="d3/d3.js"></script>
+	</head>
+
+	<body>
+		
+		<script type="text/javascript">
+			
+			var dataset = [5, 10, 13, 19, 21, 2, 22, 18, 15, 13, 11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
+
+			d3.select("body").selectAll("div")
+				.data(dataset)
+				.enter()
+				.append("div")
+				.attr("class", "bar")
+				.style("height", function(d) {
+					return (d*5) + "px";
+				});
+
+		</script>
+
+	</body>
+</html>
