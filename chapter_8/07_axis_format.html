@@ -2,6 +2,22 @@
 <html lang="en">
 	<head>
 		<style type="text/css">
+		
+			.axis path,
+			.axis line {
+
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+
+			}
+
+			.axis text {
+
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+
 		</style>
 		
 		<meta charset="utf-8">
@@ -27,21 +43,17 @@
 
 			// Data
 
-			var dataset = [
+			var dataset = [];
+			var numberOfPoints = 50;
+			var xRange = Math.random() * 1000;
+			var yRange = Math.random() * 1000;
 
-				[5,20],
-				[480,90],
-				[250,50],
-				[100,33],
-				[330,95],
-				[410,12],
-				[475,44],
-				[25,67],
-				[85,21],
-				[220,88],
-				[600,150]
-
-			];
+			for (var i=0; i<numberOfPoints; i++) {
+				console.log("babb");
+				var num1 = Math.floor(Math.random() * xRange);
+				var num2 = Math.floor(Math.random() * yRange);
+				dataset.push([num1, num2]);
+			}
 
 			// Scatter Plot
 
@@ -49,7 +61,7 @@
 			var h = 300;
 			var barPadding = 1;
 
-			var padding = 20;
+			var padding = 30;
 
 			var svg = d3.select("body")
 				.append("svg")
@@ -90,29 +102,33 @@
 				});
 				
 
-			// Text
+			// Format
 
-			svg.selectAll("text")
-				.data(dataset)
-				.enter()
-				.append("text")
-				.text(function(d) {
-					return d;
-				})
-				.attr("x", function(d, i) {
-					return xScale(d[0]);
-				}) 
-				.attr("y", function(d) {
-					return yScale(d[1]);
-				})
-				.attr("font-family", "sans-serif")
-				.attr("font-size", "11px")
-				.attr("fill", "red");
+			var formatAsPercentage = d3.format(".1%");
 
-			var axes = d3.svg.axis().scale(xScale).orient("bottom");
+			var xAxes = d3.svg.axis().
+				scale(xScale).
+				orient("bottom").
+				ticks(5).
+				tickFormat(formatAsPercentage);
+
+			var yAxes = d3.svg.axis().
+				scale(yScale).
+				orient("left").
+				ticks(5).
+				tickFormat(formatAsPercentage);
+
 
 			svg.append("g")
-				.call(axes);
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (h-padding) + ")")
+				.call(xAxes);
+
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + (padding) + ",0)")
+				.call(yAxes);
+
 
 		</script>
 

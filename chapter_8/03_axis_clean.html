@@ -2,6 +2,22 @@
 <html lang="en">
 	<head>
 		<style type="text/css">
+		
+			.axis path,
+			.axis line {
+
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+
+			}
+
+			.axis text {
+
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+
 		</style>
 		
 		<meta charset="utf-8">
@@ -109,9 +125,11 @@
 				.attr("font-size", "11px")
 				.attr("fill", "red");
 
-			var axes = d3.svg.axis().scale(xScale).orient("bottom");
+			var axes = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
 
 			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (h-padding) + ")")
 				.call(axes);
 
 		</script>
